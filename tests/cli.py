@@ -1,7 +1,6 @@
-from pprint import pprint
-from sys import argv
-from re import sub, compile
-
+# from pprint import pprint
+# from sys import argv
+# from re import sub, compile
 # from argparse import ArgumentParser
 
 RESERVED = {
@@ -22,29 +21,51 @@ RESERVED = {
     'capitaliza': 'capitalize',
 }
 
-teste_nos = """n1 = leia("Informe o primeiro valor: ")
-n2 = leia("Informe o segundo valor: ")
 
-soma = n1+n2
-multiplicado = n1*n2
-dividido = n1/n2
-
-mostre(f"A soma e {soma}")
-mostre(f"A multiplicacao e {multiplicado}")
-mostre(f"A divisao e {dividido}")"""
+def verifica_cmd(_noscode: str):
+    if 'intervalo' in _noscode:
+        return _noscode.replace('intervalo', RESERVED['intervalo'])
+    elif 'mostre' in _noscode:
+        return _noscode.replace('mostre', RESERVED['mostre'])
+    elif 'leia' in _noscode:
+        return _noscode.replace('leia', RESERVED['leia'])
+    elif 'paraInteiro' in _noscode:
+        return _noscode.replace('paraInteiro', RESERVED['paraInteiro'])
+    elif 'paraTexto' in _noscode:
+        return _noscode.replace('paraTexto', RESERVED['paraTexto'])
+    elif 'importa' in _noscode:
+        return _noscode.replace('importa', RESERVED['importa'])
+    elif 'descreva' in _noscode:
+        return _noscode.replace('descreva', RESERVED['descreva'])
+    elif 'para' in _noscode:
+        return _noscode.replace('para', RESERVED['para'])
+    elif 'retorna' in _noscode:
+        return _noscode.replace('retorna', RESERVED['retorna'])
+    elif 'em' in _noscode:
+        return _noscode.replace('em', RESERVED['em'])
+    elif 'se' in _noscode:
+        return _noscode.replace('se', RESERVED['se'])
+    elif 'senao' in _noscode:
+        return _noscode.replace('senao', RESERVED['senao'])
+    elif 'enquanto' in _noscode:
+        return _noscode.replace('enquanto', RESERVED['enquanto'])
+    elif 'tamanho' in _noscode:
+        return _noscode.replace('tamanho', RESERVED['tamanho'])
+    elif 'capitaliza' in _noscode:
+        return _noscode.replace('capitaliza', RESERVED['capitaliza'])
+    return _noscode
 
 
 def teste():
-    code_nos = ''
-    for cmd in RESERVED:
-        if cmd in teste_nos:
-            code_nos = teste_nos.replace(cmd, RESERVED[cmd])
-    return code_nos
+    code_nos = open('test.nos').readlines()
+    code_py = []
+    for linha in code_nos:
+        code_py.append(verifica_cmd(linha))
+    return code_py
 
 
 if __name__ == '__main__':
     try:
-        # nos_content = teste()
-        print(teste())
+        print("".join(teste()))
     except Exception as erro:
         print(erro)
